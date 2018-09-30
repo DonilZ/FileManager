@@ -4,7 +4,7 @@ namespace FileManager {
     class Program {
         static void Main(string[] args) {
 
-            CurrentDirectory currentDirectory = new CurrentDirectory();
+            IDirectory currentDirectory = new CurrentDirectory();
 
             IMessageViewer messageViewer = new ConsoleMessageViewer();
 

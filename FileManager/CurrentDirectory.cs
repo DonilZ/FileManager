@@ -45,8 +45,7 @@ namespace FileManager {
 
             _componentsOfCurrentDirectory.Add(desiredComponentOnLowerLevel);
 
-            return true;
-            
+            return true;   
         }
 
         private Component pullTheDesiredComponentFromTheLowerLevel(string componentName) {
@@ -61,14 +60,14 @@ namespace FileManager {
         }
 
         public bool Up () {
-            if (AreWeInTheRoot()) return false;
+            if (areWeInTheRoot()) return false;
 
             _componentsOfCurrentDirectory.Remove(_componentsOfCurrentDirectory.Last());
 
             return true;
         }
 
-        private bool AreWeInTheRoot() {
+        private bool areWeInTheRoot() {
             return _componentsOfCurrentDirectory.Count == 1;
         }
     }
