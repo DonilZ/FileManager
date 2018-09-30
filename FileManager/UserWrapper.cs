@@ -59,7 +59,7 @@ namespace FileManager {
         }
 
         public void AddNewFolderToTheCurrentDirectory(string nameOfNewFolder) {
-            Component newFolder = new Folder(nameOfNewFolder);
+            Component newFolder = SimpleComponentFactory.CreateComponent("Folder", nameOfNewFolder);
 
             Component currentFolder = _currentDirectory.GetCurrentComponent();
 
@@ -74,7 +74,7 @@ namespace FileManager {
         }
 
         public void AddNewFileToTheCurrentDirectory(string nameOfNewFile) {
-            Component newFile = new File(nameOfNewFile);
+            Component newFile = SimpleComponentFactory.CreateComponent("File", nameOfNewFile);
 
             Component currentFolder = _currentDirectory.GetCurrentComponent();
 

@@ -10,7 +10,7 @@ namespace FileManager {
         public CurrentDirectory() {
             _componentsOfCurrentDirectory = new List<Component>();
 
-            Folder rootFolder = new Folder("Root");
+            Component rootFolder = SimpleComponentFactory.CreateComponent("Folder", "Root");
             _componentsOfCurrentDirectory.Add(rootFolder);
 
         }
