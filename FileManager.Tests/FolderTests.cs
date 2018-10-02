@@ -95,11 +95,11 @@ namespace FileManager.Test {
             return _currentFolder.GetContents().Any(component => component.Name == componentName);
         }
 
-        private Folder createNewFolder(string folderName) {
+        private Component createNewFolder(string folderName) {
             return new Folder(folderName);
         }
 
-        private File createNewFile(string fileName) {
+        private Component createNewFile(string fileName) {
             return new File(fileName);
         }
     }

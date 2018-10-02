@@ -14,7 +14,7 @@ namespace FileManager {
         public override bool Add(Component newComponent) {   
             if (newComponent == null) return false;
 
-            if (IsThereAComponentInThisFolderWithTheSameName(newComponent.Name)) return false;
+            if (isThereAComponentInThisFolderWithTheSameName(newComponent.Name)) return false;
 
             _contents.Add(newComponent);
             return true;
@@ -23,13 +23,13 @@ namespace FileManager {
         public override bool Remove(Component removableComponent) {
             if (removableComponent == null) return false;
 
-            if (!IsThereAComponentInThisFolderWithTheSameName(removableComponent.Name)) return false;
+            if (!isThereAComponentInThisFolderWithTheSameName(removableComponent.Name)) return false;
 
             _contents.Remove(removableComponent);
             return true;
         }
 
-        private bool IsThereAComponentInThisFolderWithTheSameName(string componentName) {
+        private bool isThereAComponentInThisFolderWithTheSameName(string componentName) {
             return _contents.Any(component => component.Name == componentName);
         }
 

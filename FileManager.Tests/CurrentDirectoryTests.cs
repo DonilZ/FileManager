@@ -7,7 +7,7 @@ namespace FileManager.Test {
     [TestFixture]
     public class CurrentDirectoryTests {
 
-        private CurrentDirectory _currentDirectory;
+        private IDirectory _currentDirectory;
 
         public CurrentDirectoryTests() {
             _currentDirectory = new CurrentDirectory();
@@ -185,11 +185,11 @@ namespace FileManager.Test {
         }
 
 
-        private Folder createNewFolder(string folderName) {
+        private Component createNewFolder(string folderName) {
             return new Folder(folderName);
         }
 
-        private File createNewFile(string fileName) {
+        private Component createNewFile(string fileName) {
             return new File(fileName);
         }
 

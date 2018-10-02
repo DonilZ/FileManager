@@ -6,22 +6,22 @@ using Moq;
 
 namespace FileManager.Test {
     [TestFixture]
-    public class UserWrapperTests {
+    public class ConsoleFileManagerTests {
         private string _lastMessageFromViewer;
-        private UserWrapper _userWrapper;
+        private FileManager _consoleFileManager;
         
         public Mock<IMessageViewer> FakeMessageViewer { get; private set; }
         public Mock<Component> FakeComponent { get; private set;}
         public Mock<IDirectory> FakeDirectory { get; private set; }
 
-        public UserWrapperTests() {
+        public ConsoleFileManagerTests() {
             createAFakeMessageViewer();
 
             createAFakeComponent() ;
 
             createAFakeDirectory();
 
-            _userWrapper = new UserWrapper(FakeDirectory.Object, FakeMessageViewer.Object);
+            _consoleFileManager = new ConsoleFileManager(FakeDirectory.Object, FakeMessageViewer.Object);
         }
 
         private void createAFakeMessageViewer() {
@@ -69,7 +69,7 @@ namespace FileManager.Test {
             Component folderWithTheSameName = new Folder("SameName");
 
             //Act           
-            _userWrapper.AddNewFolderToTheCurrentDirectory(folderWithTheSameName.Name);
+            _consoleFileManager.AddNewFolderToTheCurrentDirectory(folderWithTheSameName.Name);
 
             //Assert
             string expectedMessage = "A component with this name already exists";
@@ -85,7 +85,7 @@ namespace FileManager.Test {
             Component fileWithTheSameName = new File("SameName");
 
             //Act           
-            _userWrapper.AddNewFolderToTheCurrentDirectory(fileWithTheSameName.Name);
+            _consoleFileManager.AddNewFolderToTheCurrentDirectory(fileWithTheSameName.Name);
 
             //Assert
             string expectedMessage = "A component with this name already exists";
@@ -100,7 +100,7 @@ namespace FileManager.Test {
             //Arrange
 
             //Act           
-            _userWrapper.RemoveAComponentFromTheCurrentDirectory("nameOfNotExistComponent");
+            _consoleFileManager.RemoveAComponentFromTheCurrentDirectory("nameOfNotExistComponent");
 
             //Assert
             string expectedMessage = "The removable component does not exist";
@@ -115,7 +115,7 @@ namespace FileManager.Test {
             //Arrange
 
             //Act           
-            _userWrapper.RiseToTheUpperLevel();
+            _consoleFileManager.RiseToTheUpperLevel();
 
             //Assert
             string expectedMessage = "It is impossible to rise up, because you are in the root";
@@ -130,7 +130,7 @@ namespace FileManager.Test {
             //Arrange
 
             //Act           
-            _userWrapper.GoDownToTheLowerLevel("nameOfNotExistComponent");
+            _consoleFileManager.GoDownToTheLowerLevel("nameOfNotExistComponent");
 
             //Assert
             string expectedMessage = "The component nameOfNotExistComponent does not exist in the current directory";
@@ -149,7 +149,7 @@ namespace FileManager.Test {
                                 .Returns(fakeListWithNonCompositeComponent);
 
             //Act           
-            _userWrapper.GoDownToTheLowerLevel("nameOfNonCompositeComponent");
+            _consoleFileManager.GoDownToTheLowerLevel("nameOfNonCompositeComponent");
 
             //Assert
             string expectedMessage = "The component nameOfNonCompositeComponent can not be descended because it is not a composite";

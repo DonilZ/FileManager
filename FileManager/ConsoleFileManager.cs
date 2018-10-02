@@ -4,29 +4,24 @@ using System.Linq;
 
 namespace FileManager {
 
-    public class UserWrapper {
+    public class ConsoleFileManager : FileManager {
+        public ConsoleFileManager(IDirectory currentDirectory, IMessageViewer messageViewer)
+                            : base(currentDirectory, messageViewer) 
+        { }
 
-        private IDirectory _currentDirectory;
-        private IMessageViewer _messageViewer;
-
-        public UserWrapper(IDirectory currentDirectory, IMessageViewer messageViewer) {
-            _currentDirectory = currentDirectory;
-            _messageViewer = messageViewer;
-        }
-
-        public void ShowTheNameOfTheCurrentFolder() {
+        public override void ShowTheNameOfTheCurrentFolder() {
             Component currentFolder = _currentDirectory.GetCurrentComponent();
 
             Console.WriteLine(currentFolder.Name);
         }
 
-        public void ShowThePathOfTheCurrentDirectory() {
+        public override void ShowThePathOfTheCurrentDirectory() {
             string pathOfTheCurrentDirectory = _currentDirectory.GetPathOfTheCurrentDirectory();
 
             Console.WriteLine(pathOfTheCurrentDirectory);
         }
 
-        public void ShowTheContentsOfTheCurrentDirectory() {
+        public override void ShowTheContentsOfTheCurrentDirectory() {
             Component currentFolder = _currentDirectory.GetCurrentComponent();
 
             foreach (var component in currentFolder.GetContents()) {
@@ -34,13 +29,13 @@ namespace FileManager {
             }
         }
 
-        public void RiseToTheUpperLevel() {
+        public override void RiseToTheUpperLevel() {
             bool result = _currentDirectory.Up();
 
             if (!result) _messageViewer.DisplayMessage("It is impossible to rise up, because you are in the root");
         }
 
-        public void GoDownToTheLowerLevel(string nameOfDesiredComponentForGoDown) {
+        public override void GoDownToTheLowerLevel(string nameOfDesiredComponentForGoDown) {
             bool resultAfterGoDown = _currentDirectory.Down(nameOfDesiredComponentForGoDown);
 
             if (resultAfterGoDown) return;
@@ -58,7 +53,7 @@ namespace FileManager {
             
         }
 
-        public void AddNewFolderToTheCurrentDirectory(string nameOfNewFolder) {
+        public override void AddNewFolderToTheCurrentDirectory(string nameOfNewFolder) {
             Component newFolder = SimpleComponentFactory.CreateComponent("Folder", nameOfNewFolder);
 
             Component currentFolder = _currentDirectory.GetCurrentComponent();
@@ -73,7 +68,7 @@ namespace FileManager {
             _messageViewer.DisplayMessage($"New folder {newFolder.Name} successfully added");
         }
 
-        public void AddNewFileToTheCurrentDirectory(string nameOfNewFile) {
+        public override void AddNewFileToTheCurrentDirectory(string nameOfNewFile) {
             Component newFile = SimpleComponentFactory.CreateComponent("File", nameOfNewFile);
 
             Component currentFolder = _currentDirectory.GetCurrentComponent();
@@ -88,7 +83,7 @@ namespace FileManager {
             _messageViewer.DisplayMessage($"New file {newFile.Name} successfully added");
         }
 
-        public void RemoveAComponentFromTheCurrentDirectory(string nameOfTheRemovableComponent) {
+        public override void RemoveAComponentFromTheCurrentDirectory(string nameOfTheRemovableComponent) {
             Component removableComponent = findTheRemovableComponentInTheCurrentFolder(nameOfTheRemovableComponent);
 
             List<Component> componentsOfCurrentFolder = getTheContentsOfTheCurrentFolder();
