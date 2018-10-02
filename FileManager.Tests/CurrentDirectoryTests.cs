@@ -36,7 +36,7 @@ namespace FileManager.Test {
         [Test]
         public void GoDown_ComponentInWhichWeWantToGoDownIsNotComposite_NotGoDownAndReturnsFalse() {
             //Arrange
-            Component newFile = createNewFile("lowerFile");
+            Component newFile = SimpleComponentFactory.CreateComponent("File", "lowerFile");
             Component rootFolder = _currentDirectory.GetCurrentComponent();
             rootFolder.Add(newFile);
 
@@ -54,7 +54,7 @@ namespace FileManager.Test {
         [Test]
         public void GoDown_ComponentInWhichWeWantToGoDownIsComposite_GoDownIntoAComponentAndReturnsTrue() {
             //Arrange
-            Component newFolder = createNewFolder("lowerFolder");
+            Component newFolder = SimpleComponentFactory.CreateComponent("Folder", "lowerFolder");
             Component rootFolder = _currentDirectory.GetCurrentComponent();
             rootFolder.Add(newFolder);
 
@@ -87,7 +87,7 @@ namespace FileManager.Test {
         [Test]
         public void RiseUp_WeAreNotInTheRoot_RiseUpAndReturnsTrue() {
             //Arrange
-            Component newFolder = createNewFolder("lowerFolder");
+            Component newFolder = SimpleComponentFactory.CreateComponent("Folder", "lowerFolder");
             Component rootFolder = _currentDirectory.GetCurrentComponent();
             rootFolder.Add(newFolder);
             _currentDirectory.Down("lowerFolder");
@@ -120,7 +120,7 @@ namespace FileManager.Test {
         [Test]
         public void GetCurrentComponent_AddNewFolderAfterRootAndGoDownThere_ReturnNameOfNewAddedFolder() {
             //Arrange
-            Component newFolder = createNewFolder("newFolder");
+            Component newFolder = SimpleComponentFactory.CreateComponent("Folder", "newFolder");
             Component rootFolder = _currentDirectory.GetCurrentComponent();
             rootFolder.Add(newFolder);
             _currentDirectory.Down("newFolder");
@@ -153,7 +153,7 @@ namespace FileManager.Test {
         [TestCase("1234")]
         public void GetPathOfTheCurrentDirectory_WeAreNotInTheRoot_ReturnTheFullPath(string nameOfFolderOnTheLowerLevel) {
             //Arrange
-            Component componentOnTheLowerLevel = new Folder(nameOfFolderOnTheLowerLevel);
+            Component componentOnTheLowerLevel = SimpleComponentFactory.CreateComponent("Folder", nameOfFolderOnTheLowerLevel);
             _currentDirectory.GetCurrentComponent().Add(componentOnTheLowerLevel);
 
             _currentDirectory.Down(nameOfFolderOnTheLowerLevel);
@@ -170,7 +170,7 @@ namespace FileManager.Test {
         [Test]
         public void GetPathOfTheCurrentDirectory_AddNewFolderAfterRootAndGoDownThere_ReturnPathWithNewFolderAfterRoot() {
             //Arrange
-            Component newFolder = createNewFolder("newFolder");
+            Component newFolder = SimpleComponentFactory.CreateComponent("Folder", "newFolder");
             Component rootFolder = _currentDirectory.GetCurrentComponent();
             rootFolder.Add(newFolder);
             _currentDirectory.Down("newFolder");
@@ -183,16 +183,6 @@ namespace FileManager.Test {
 
             Assert.AreEqual(actualPathOfCurrentDirectory, expectedPathOfCurrentDirectory);
         }
-
-
-        private Component createNewFolder(string folderName) {
-            return new Folder(folderName);
-        }
-
-        private Component createNewFile(string fileName) {
-            return new File(fileName);
-        }
-
         
     }
 }

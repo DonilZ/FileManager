@@ -30,3 +30,9 @@ msbuild.wrn
 
 # Visual Studio 2015
 .vs/
+
+#MiniCover files with code coverage results
+coverage-html
+coverage.json
+coverage.hits
+tools

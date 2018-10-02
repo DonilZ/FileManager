@@ -66,7 +66,7 @@ namespace FileManager.Test {
         [Test]
         public void AddNewFolder_ThereIsAlreadyAComponentWithTheSameName_GiveAnErrorMessage() {
             //Arrange
-            Component folderWithTheSameName = new Folder("SameName");
+            Component folderWithTheSameName = SimpleComponentFactory.CreateComponent("Folder", "SameName");
 
             //Act           
             _consoleFileManager.AddNewFolderToTheCurrentDirectory(folderWithTheSameName.Name);
@@ -82,10 +82,10 @@ namespace FileManager.Test {
         [Test]
         public void AddNewFile_ThereIsAlreadyAComponentWithTheSameName_GiveAnErrorMessage() {
             //Arrange
-            Component fileWithTheSameName = new File("SameName");
+            Component fileWithTheSameName = SimpleComponentFactory.CreateComponent("File", "SameName");
 
             //Act           
-            _consoleFileManager.AddNewFolderToTheCurrentDirectory(fileWithTheSameName.Name);
+            _consoleFileManager.AddNewFileToTheCurrentDirectory(fileWithTheSameName.Name);
 
             //Assert
             string expectedMessage = "A component with this name already exists";
@@ -143,7 +143,7 @@ namespace FileManager.Test {
         public void GoDownToTheLowerLevel_ComponentExistButIsNotAComposite_GiveAnErrorMessage() {
             //Arrange
             List<Component> fakeListWithNonCompositeComponent = new List<Component>();
-            fakeListWithNonCompositeComponent.Add(new File("nameOfNonCompositeComponent"));
+            fakeListWithNonCompositeComponent.Add(SimpleComponentFactory.CreateComponent("File", "nameOfNonCompositeComponent"));
 
             FakeComponent.Setup (method => method.GetContents())
                                 .Returns(fakeListWithNonCompositeComponent);
